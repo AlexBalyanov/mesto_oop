@@ -35,3 +35,11 @@ export type TCardInfo = Pick<ICard, 'name' | 'link'>;
 export type TUserPublicInfo = Pick<IUser, 'name' | 'about' | 'avatar'>;
 export type TUserBaseInfo = Pick<IUser, 'name' | 'about'>;
 export type TUserAvatar = Pick<IUser, 'avatar'>;
+
+export type ApiPostMethods = 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+
+export interface IApi {
+	baseUrl: string;
+	get<T>(uri: string): Promise<T>;
+	post<T>(uri: string, data: object, method?: ApiPostMethods): Promise<T>;
+}
