@@ -7,7 +7,7 @@ import { Api } from './components/base/api';
 import { API_URL, settings } from './utils/constants';
 import { AppApi } from './components/AppApi';
 import { Card } from './components/Card';
-import { testCards, testUser } from './utils/tempConstants';
+import { testUser } from './utils/tempConstants';
 
 const events = new EventEmitter();
 
@@ -31,9 +31,10 @@ Promise.all([api.getUser(), api.getCards()])
 const testSection = document.querySelector('.places');
 
 const card = new Card(cardTemplate, events);
-card.setData(testCards[0], testUser._id);
+testSection.append(card.render({name: "alex"}, 'dbfe53c3c4d568240378b0c6'))
+card.render({owner: testUser}, 'dbfe53c3c4d568240378b0c6');
 
-testSection.append(card.render());
+
 
 events.onAll((event) => {
 	console.log(event.eventName, event.data);
