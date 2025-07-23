@@ -58,7 +58,7 @@ export class Card extends Component<ICard> {
 			}
 		}
 
-		super.render(otherCardData);
+		return super.render(otherCardData);
 	}
 
 	set _id(id) {

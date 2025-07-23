@@ -1,7 +1,7 @@
 export const testUser = {
-    "name": "Сергей",
-    "about": "Исследователь океана",
-    "avatar": "https://scontent.fmex41-1.fna.fbcdn.net/v/t39.30808-6/385770710_873776704103765_3789357224619367570_n.png?_nc_cat=1&ccb=1-7&_nc_sid=5f2048&_nc_ohc=hXP7ihrJj1YAb5V68dO&_nc_ht=scontent.fmex41-1.fna&oh=00_AfDltyoOHPUaLXYWUOJET3kexUONV9Zbo4460MkhPxXCTA&oe=66156F27",
+    "name": "Саня",
+    "about": "Исследователь очка",
+    "avatar": "https://m.media-amazon.com/images/M/MV5BOTczZDk5NWEtOWExMi00M2RiLWEzN2ItMDBkY2ExMzBhMTczXkEyXkFqcGc@._V1_.jpg",
     "_id": "dd8b6dea22fe4ea0ad5d46f4",
     "cohort": "cohort0"
 }

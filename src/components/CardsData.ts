@@ -17,7 +17,7 @@ export class CardData implements ICardsData {
 		this.events.emit('cards:changed');
 	}
 
-	get card() {
+	get cards() {
 		return this._cards;
 	}
 
