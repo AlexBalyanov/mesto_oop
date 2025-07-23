@@ -7,7 +7,9 @@ import { Api } from './components/base/api';
 import { API_URL, settings } from './utils/constants';
 import { AppApi } from './components/AppApi';
 import { Card } from './components/Card';
-import { testUser } from './utils/tempConstants';
+import { testCards, testUser } from './utils/tempConstants';
+import { CardsContainer } from './components/CardsContainer';
+import { cloneTemplate } from './utils/utils';
 
 const events = new EventEmitter();
 
@@ -16,8 +18,12 @@ const userData = new UserData(events);
 
 const cardTemplate: HTMLTemplateElement = document.querySelector('.card-template');
 
+const cardsContainer = new CardsContainer(document.querySelector('.places__list'));
+
 const baseApi: IApi = new Api(API_URL, settings);
 const api = new AppApi(baseApi);
+
+
 
 Promise.all([api.getUser(), api.getCards()])
 	.then(([userInfo, cards]) => {
@@ -28,14 +34,11 @@ Promise.all([api.getUser(), api.getCards()])
 		console.log(err);
 	})
 
-const testSection = document.querySelector('.places');
+const card1 = new Card(cloneTemplate(cardTemplate), events);
+const card2 = new Card(cloneTemplate(cardTemplate), events);
+const cardsArray = [];
+cardsArray.push(card1.render(testCards[0], testUser._id));
+cardsArray.push(card2.render(testCards[1], testUser._id));
 
-const card = new Card(cardTemplate, events);
-testSection.append(card.render({name: "alex"}, 'dbfe53c3c4d568240378b0c6'))
-card.render({owner: testUser}, 'dbfe53c3c4d568240378b0c6');
+cardsContainer.render({catalog: cardsArray});
 
-
-
-events.onAll((event) => {
-	console.log(event.eventName, event.data);
-})

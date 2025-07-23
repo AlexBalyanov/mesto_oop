@@ -1,9 +1,8 @@
 import { IEvents } from './base/events';
-import { cloneTemplate } from '../utils/utils';
 import { ICard, IUser } from '../types';
+import { Component } from './base/Component';
 
-export class Card {
-	protected element: HTMLElement;
+export class Card extends Component<ICard> {
 	protected events: IEvents;
 	protected likeButton: HTMLButtonElement;
 	protected likeCount: HTMLElement;
@@ -12,15 +11,16 @@ export class Card {
 	protected cardTitle: HTMLElement;
 	protected cardId: string;
 
-	constructor(template: HTMLTemplateElement, events: IEvents) {
-		this.events = events;
-		this.element = cloneTemplate(template);
+	constructor(protected container: HTMLElement, events: IEvents) {
+		super(container);
 
-		this.likeButton = this.element.querySelector('.card__like-button');
-		this.likeCount = this.element.querySelector('.card__like-count');
-		this.deleteButton = this.element.querySelector('.card__delete-button');
-		this.cardImage = this.element.querySelector('.card__image');
-		this.cardTitle = this.element.querySelector('.card__title');
+		this.events = events;
+
+		this.likeButton = this.container.querySelector('.card__like-button');
+		this.likeCount = this.container.querySelector('.card__like-count');
+		this.deleteButton = this.container.querySelector('.card__delete-button');
+		this.cardImage = this.container.querySelector('.card__image');
+		this.cardTitle = this.container.querySelector('.card__title');
 
 		this.cardImage.addEventListener('click', () => {
 			this.events.emit('card:select', {card: this});
@@ -39,20 +39,26 @@ export class Card {
 		return this.likeButton.classList.contains('card__like-button_is-active');
 	}
 
-	render(cardData: Partial<ICard>, userId: string) {
+	render(data?: Partial<ICard>): HTMLElement;
+	render(cardData: Partial<ICard>, userId: string): HTMLElement;
+
+	render(cardData: Partial<ICard> | undefined, userId?: string) {
 		const {likes, owner, ...otherCardData} = cardData;
 
-		if (likes) {
-			this.likes = {likes, userId};
+		if (!cardData) return this.container;
+
+		if (userId) {
+
+			if (likes) {
+				this.likes = {likes, userId};
+			}
+
+			if (owner) {
+				this.owner = {owner, userId};
+			}
 		}
 
-		if (owner) {
-			this.owner = {owner, userId};
-		}
-
-		Object.assign(this, otherCardData);
-
-		return this.element;
+		super.render(otherCardData);
 	}
 
 	set _id(id) {
@@ -84,7 +90,7 @@ export class Card {
 	}
 
 	deleteCard() {
-		this.element.remove();
-		this.element = null;
+		this.container.remove();
+		this.container = null;
 	}
 }

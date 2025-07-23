@@ -31,6 +31,10 @@ export interface IUserData {
 	checkUserValidation(data: Record<keyof TUserPublicInfo, string>): boolean;
 }
 
+export interface ICardContainer {
+	catalog: HTMLElement[];
+}
+
 export type TCardInfo = Pick<ICard, 'name' | 'link'>;
 export type TUserPublicInfo = Pick<IUser, 'name' | 'about' | 'avatar'>;
 export type TUserBaseInfo = Pick<IUser, 'name' | 'about'>;
