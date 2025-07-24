@@ -13,9 +13,7 @@ export class Card extends Component<ICard> {
 
 	constructor(protected container: HTMLElement, events: IEvents) {
 		super(container);
-
 		this.events = events;
-
 		this.likeButton = this.container.querySelector('.card__like-button');
 		this.likeCount = this.container.querySelector('.card__like-count');
 		this.deleteButton = this.container.querySelector('.card__delete-button');
@@ -40,6 +38,7 @@ export class Card extends Component<ICard> {
 	}
 
 	render(data?: Partial<ICard>): HTMLElement;
+
 	render(cardData: Partial<ICard>, userId: string): HTMLElement;
 
 	render(cardData: Partial<ICard> | undefined, userId?: string) {

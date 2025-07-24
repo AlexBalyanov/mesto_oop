@@ -1,5 +1,8 @@
-import { ICardContainer } from '../types';
 import { Component } from './base/Component';
+
+interface ICardContainer {
+	catalog: HTMLElement[];
+}
 
 export class CardsContainer extends Component<ICardContainer> {
 	protected _catalog: HTMLElement;
